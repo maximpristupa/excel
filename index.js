@@ -1,6 +1,8 @@
 // Data
 
 const fs = require('fs');
+const calc = require('./evaluate')
+
 const row_data = [
   {
     name: 'Ivan',
@@ -52,5 +54,10 @@ function read_csv(file) {
 	  });
 }
 
-write_csv(row_data)
-read_csv("data.csv")
+// write_csv(row_data)
+// read_csv("data.csv")
+
+// Cell calculation
+
+console.log(calc.evaluate('(3*4-3)^2'))
+console.log(calc.evaluate('1+2*3-(3+8)^3+3/9'))
