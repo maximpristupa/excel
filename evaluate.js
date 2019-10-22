@@ -1,7 +1,3 @@
-String.prototype.isNumeric = function() {
-    return !isNaN(parseFloat(this)) && isFinite(this);
-}
-
 Array.prototype.clean = function() {
     for(let i = 0; i < this.length; i++) {
         if(this[i] === "") {
@@ -40,7 +36,7 @@ function expressionToRpn(expression) {
         expression = expression.split(/([\+\-\*\/\^\(\)])/).clean();
         for(let i = 0; i < expression.length; i++) {
             let token = expression[i];
-            if(token.isNumeric()) {
+            if(token == +token) {
                 outputQueue += token + " ";
             } else if("^*/+-".indexOf(token) !== -1) {
                 let o1 = token;
@@ -67,8 +63,15 @@ function expressionToRpn(expression) {
 
 function calculateRpnExpression(str) {
     s = []
-    str.split(' ').forEach(t =>
-        s.push(t == +t ? t : eval(s.splice(-2,1)[0] + t + s.pop())));
+    str = str.split(' ')
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] == +str[i]) s.push(str[i])
+        else if (str[i] == '+') s.push(+s.splice(-2,1)[0] + +s.pop())
+        else if (str[i] == '-') s.push(+s.splice(-2,1)[0] - +s.pop())
+        else if (str[i] == '*') s.push(+s.splice(-2,1)[0] * +s.pop())
+        else if (str[i] == '/') s.push(+s.splice(-2,1)[0] / +s.pop())
+        else if (str[i] == '**') s.push(Math.pow(+s.splice(-2,1)[0], +s.pop()))
+    }
     return s[0];
 }
 
@@ -79,3 +82,4 @@ function evaluate(expression) {
 }
 
 module.exports.evaluate = evaluate
+

@@ -59,5 +59,9 @@ function read_csv(file) {
 
 // Cell calculation
 
+console.log(calc.evaluate('(1+2+5)^3'))
+console.log(calc.evaluate('1+2+5-10'))
+console.log(calc.evaluate('1+2+5-10+40*2'))
+console.log(calc.evaluate('(1+2+5-10+40*2)/4'))
 console.log(calc.evaluate('(3*4-3)^2'))
 console.log(calc.evaluate('1+2*3-(3+8)^3+3/9'))
