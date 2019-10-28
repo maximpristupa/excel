@@ -2,66 +2,48 @@
 
 const fs = require('fs');
 const calc = require('./evaluate')
-
-const row_data = [
-  {
-    name: 'Ivan',
-    surname: 'Ivanov',
-    age: 20,
-    gender: 'M'
-  }, {
-    name: 'Fedor',
-    surname: 'Fedorov',
-    age: 25,
-    gender: 'M',
-  }, {
-    name: 'Maria',
-    surname: 'Brown',
-    age: 78,
-    gender: 'F'
-  }, {
-    name: 'Maria',
-    surname: 'Brown',
-    age: 78,
-    gender: 'F'
-  }
-];
+const sort = require('./sorting')
 
 // Write
 
-function write_csv(data, file = 'data.csv') {
-	const fastcsv = require('fast-csv');
-	// const fs = require('fs');
-	const ws = fs.createWriteStream(file);
-	fastcsv
-	  .write(data, { headers: true })
-	  .pipe(ws);
-	console.log('The CSV file was written successfully');
+function objectsToCsv(objects) {
+  let letters = objects.map(function(num) {
+      return num.name.match(/[A-Z]/)[0];
+  });
+  let numbers = objects.map(function(num) {
+      return num.name.match(/\d/)[0];
+  });
+  let last_letter = letters.sort().pop()
+  let last_number = numbers.sort().pop()
+  let file = []
+  for (var i = 0; i < last_number; i++) {
+    let row = []
+    for (var y = 'A'.charCodeAt(0); y < last_letter.charCodeAt(0) + 1; y++) {
+      let found = objects.find(function(element) { 
+        return element.name == `${String.fromCharCode(y)}${i+1}`;
+      });
+      if (found) {row.push(found.value)} else {row.push('')}
+    }
+    file.push(row)
+  }
+  writeCsv(file, 'new_file2.csv')
+}
+
+function writeCsv(objects,file) {
+  const createCsvWriter = require('csv-writer').createArrayCsvWriter;
+  const csvWriter = createCsvWriter({
+      path: file
+  });
+  csvWriter.writeRecords(objects); 
 }
 
 // Read
 
-function read_csv(file) {
-	const csv = require('csv-parser');
-	// const fs = require('fs');
-	fs.createReadStream(file)
-	  .pipe(csv())
-	  .on('data', (row) => {
-	    console.log(row);
-	  })
-	  .on('end', () => {
-	    console.log('CSV file successfully processed');
-	  });
+function readCsv(file) {
+  return fs.readFileSync(file, 'utf8');
 }
 
-// write_csv(row_data)
-// read_csv("data.csv")
+// reading, calculating, writing
 
-// Cell calculation
-
-console.log(calc.evaluate('(1+2+5)^3'))
-console.log(calc.evaluate('1+2+5-10'))
-console.log(calc.evaluate('1+2+5-10+40*2'))
-console.log(calc.evaluate('(1+2+5-10+40*2)/4'))
-console.log(calc.evaluate('(3*4-3)^2'))
-console.log(calc.evaluate('1+2*3-(3+8)^3+3/9'))
+let objects = sort.csvToObjects(readCsv('data.csv'))
+objectsToCsv(objects)
