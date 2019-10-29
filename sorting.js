@@ -25,6 +25,7 @@ function csvToObjects(csv) {
 		deleteEmptyCells(objects)
 		deleteCycle(objects)
 		let ready_for_calc = unsettledCells(objects).filter(i => i.links.filter(x => !arrayOfNames(calculatedСells).includes(x)).length == 0);
+		if (ready_for_calc.length == 0) {throw new Error('Loop detected. Calculation stopped.');}
 		ready_for_calc.forEach(function(calc_cell) {
 			calculatedСells.push(calc_cell);
 		});
