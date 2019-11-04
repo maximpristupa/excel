@@ -1,68 +1,79 @@
+const RIGHT = 'Right'
+const LEFT = 'Left'
+
 const operators = {
-    "^": {
+    '^': {
         precedence: 4,
-        associativity: "Right"
+        associativity: RIGHT
     },
-    "/": {
+    '/': {
         precedence: 3,
-        associativity: "Left"
+        associativity: LEFT
     },
-    "*": {
+    '*': {
         precedence: 3,
-        associativity: "Left"
+        associativity: LEFT
     },
-    "+": {
+    '+': {
         precedence: 2,
-        associativity: "Left"
+        associativity: LEFT
     },
-    "-": {
+    '-': {
         precedence: 2,
-        associativity: "Left"
+        associativity: LEFT
     }
 }
 
 function expressionToRpn(expression) {
-    let outputQueue = "";
+    let outputQueue = '';
     let operatorStack = [];
-    expression = expression.replace(/\s+/g, "");
-    expression = expression.split(/([\+\-\*\/\^\(\)])/).filter(character => character)
-    expression.forEach(function(item){
+    expression = expression.replace(/\s+/g, '');
+    let elements = expression.split(/([\+\-\*\/\^\(\)])/).filter(character => character)
+    elements.forEach(function(item){
         let token = item;
-        if (token === (+token).toString()) {
-            outputQueue += token + " ";
-        } else if ("^*/+-".indexOf(token) !== -1) {
+        if (token === `${+token}`) {
+            outputQueue += `${token} `;
+            return;
+        } 
+        if ("^*/+-".indexOf(token) !== -1) {
             let o1 = token;
             let o2 = operatorStack[operatorStack.length - 1];
             while (operator(o1,o2)) {
-                outputQueue += operatorStack.pop() + ` `;
+                outputQueue += `${operatorStack.pop()} `;
                 o2 = operatorStack[operatorStack.length - 1];
             }
             operatorStack.push(o1);
-        } else if (token === "(") {
+            return;
+        } 
+        if (token === '(') {
             operatorStack.push(token);
-        } else if (token === ")") {
-            while (operatorStack[operatorStack.length - 1] !== "(") {
-                outputQueue += operatorStack.pop() + ` `;
+            return;
+        } 
+        if (token === ')') {
+            while (operatorStack[operatorStack.length - 1] !== '(') {
+                outputQueue += `${operatorStack.pop()} `;
             }
             operatorStack.pop();
+            return;
         }
+
     });
     while (operatorStack.length > 0) {
-        outputQueue += operatorStack.pop() + ` `;
+        outputQueue += `${operatorStack.pop()} `;
     }
     return outputQueue.replace('^', '**');
 }
 
 function operator(o1,o2) {
-   return "^*/+-".indexOf(o2) !== -1 && ((operators[o1].associativity === "Left" && operators[o1].precedence <= operators[o2].precedence) || (operators[o1].associativity === "Right" && operators[o1].precedence < operators[o2].precedence))
+   return "^*/+-".indexOf(o2) !== -1 && ((operators[o1].associativity === LEFT && operators[o1].precedence <= operators[o2].precedence) || (operators[o1].associativity === RIGHT && operators[o1].precedence < operators[o2].precedence))
 }
 
 function calculateRpnExpression(str) {
-    result = []
-    let expression = str.split(' ')
-    expression.forEach(function(item){
+    let result = [];
+    const expression = str.split(' ');
+    expression.forEach((item) => {
         switch (item) {
-          case (+item).toString():
+          case `${+item}`:
             result.push(item);
             break;
           case '+':
@@ -79,6 +90,8 @@ function calculateRpnExpression(str) {
             break;
           case '**':
             result.push(Math.pow(+result.splice(-2,1)[0], +result.pop()));
+            break;
+          default:
             break;
         }
     });
