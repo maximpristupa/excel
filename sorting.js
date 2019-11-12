@@ -4,7 +4,9 @@ const calc = require('./evaluate')
 function csvToObjects(csv) {
 	objects = []
 	calculatedСells = []
-	let lines = csv.split("\n");
+	let object_type = typeof csv
+	let lines
+	if (object_type == 'string') {lines = csv.split("\n");} else {lines = csv;}
 	lines.forEach(function(line, line_index) {
 	let cells=line.split(",");
 		cells.forEach(function(cell, cell_index) {
@@ -26,6 +28,7 @@ function csvToObjects(csv) {
 		deleteCycle(objects)
 		let ready_for_calc = unsettledCells(objects).filter(i => i.links.filter(x => !arrayOfNames(calculatedСells).includes(x)).length == 0);
 		if (ready_for_calc.length == 0) {throw new Error('Loop detected. Calculation stopped.');}
+
 		ready_for_calc.forEach(function(calc_cell) {
 			calculatedСells.push(calc_cell);
 		});
@@ -43,10 +46,9 @@ function csvToObjects(csv) {
 	}
 
 	calculatedСells.forEach(function(cell) {
-		if (cell.value.match(/error/i)) {return;}
+		if (cell.value.match(/error/i) || cell.value === `${+cell.value}`) {return;}
 		cell.value = calc.evaluate(cell.value)
 	})
-
 	return objects
 }
 
