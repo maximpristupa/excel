@@ -9,7 +9,7 @@ const sort = require('./sorting');
 const rw = require('./rw');
 
 const app = express();
-app.set("view engine", "hbs");
+// app.set("view engine", "hbs");
 
 app.use(bodyParser.urlencoded({
     extended: true

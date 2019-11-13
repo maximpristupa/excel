@@ -3,7 +3,7 @@
 // Data
 
 const fs = require('fs');
-
+const charCodeA = 'A'.charCodeAt(0);
 // Write
 
 function objectsToCsv(objects) {
@@ -15,11 +15,12 @@ function objectsToCsv(objects) {
     });
     let lastLetter = letters.sort().pop();
     let lastNumber = numbers.sort().pop();
+    const charCodeLastLetter = lastLetter.charCodeAt(0);
     let file = [];
-    for (var i = 0; i < lastNumber; i++) {
+    for (let i = 0; i < lastNumber; i++) {
         let row = [];
-        for (var y = 'A'.charCodeAt(0); y < lastLetter.charCodeAt(0) + 1; y++) {
-            let found = objects.find(function(element) {
+        for (let y = charCodeA; y < charCodeLastLetter + 1; y++) {
+            let found = objects.find((element) => {
                 return element.name == `${String.fromCharCode(y)}${i+1}`;
             });
             if (found) {
