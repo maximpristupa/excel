@@ -10,18 +10,18 @@ function csvToObjects(csv) {
     let objectType = typeof csv;
     let lines;
     if (objectType == 'string') {
-        lines = csv.split("\n");
+        lines = csv.split('\n');
     } else {
         lines = csv;
     }
     lines.forEach((line, lineIndex) => {
-        let cells = line.split(",");
+        let cells = line.split(',');
         cells.forEach((cell, cellIndex) => {
             if (!cell) {
                 return;
             }
             let links = cell.match(/[A-Z]\d/g);
-            if (cell != `${+cell}` && cell[0] != '=') {
+            if (cell !== `${+cell}` && cell[0] != '=') {
                 links = null;
                 cell = `~${cell}`
             }
@@ -41,7 +41,7 @@ function csvToObjects(csv) {
     while (calculatedСells.length < objects.length) {
         let readyForCalc = unsettledCells(objects).filter(i => i.links.filter(x => !arrayOfNames(calculatedСells).includes(x)).length == 0);
         if (readyForCalc.length == 0) {
-            removeLinks(unsettledCells(objects), "Error")
+            removeLinks(unsettledCells(objects), 'Error')
         }
         readyForCalc.forEach((calcCell) => {
             calculatedСells.push(calcCell);

@@ -7,12 +7,8 @@ const charCodeA = 'A'.charCodeAt(0);
 // Write
 
 function objectsToCsv(objects) {
-    let letters = objects.map(function(num) {
-        return num.name.match(/[A-Z]/)[0];
-    });
-    let numbers = objects.map(function(num) {
-        return num.name.match(/\d/)[0];
-    });
+    const letters = objects.map((num) => num.name.match(/[A-Z]/)[0]);
+    const numbers = objects.map((num) => num.name.match(/\d/)[0]);
     let lastLetter = letters.sort().pop();
     let lastNumber = numbers.sort().pop();
     const charCodeLastLetter = lastLetter.charCodeAt(0);
