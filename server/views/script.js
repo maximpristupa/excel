@@ -17,22 +17,24 @@ function displayPage(response = null) {
   csv.forEach((row, rowIndex) => {
       if (rowIndex === 0) {
         let rowLetter = '';
+        rowLetter += '<div class="row letterRow">';
         for (let i = 0; i < row.length; i++) {
-          rowLetter += `<div class="letterRow">${String.fromCharCode(charCodeAt)}</div>`;
+          rowLetter += `<div class="letterCell">${String.fromCharCode(charCodeAt)}</div>`;
           charCodeAt += 1;
         }
+		rowLetter += '</div>';
         html += rowLetter;
       }
       html += '<div class="row">';
       html += `<div class="numberRow">${rowNumber}</div>`;
       rowNumber += 1;
       row.forEach((cell) => {
-          html += `<div class="cell"> <input class="cellInput" onkeydown = "if (event.keyCode == 13) calculate()" type="text" name="cell" value="${cell}"> </div>`;
+          html += `<div class="cell"> <input class="cellInput cell" onkeydown = "if (event.keyCode == 13) calculate()" type="text" name="cell" value="${cell}"> </div>`;
       });
       html += '</div>';
   });
   html += `<input type="hidden" name="rowCount" value="${csv.length}">`;
-  html += '<input onclick="calculate()" value="Recalculate" type="button" id="recalcButton"/>';
+  // html += '<input onclick="calculate()" value="Recalculate" type="button" id="recalcButton"/>';
   html += '</form>';
   return html;
 }
