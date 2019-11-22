@@ -1,22 +1,4 @@
-.letterRow{
-	 /*width: 100px;
-	 display:inline-block;
-	 margin: 10px;
-	 text-align: center;*/
-}
-.numberRow{
-/*	 display:inline-block;
-	 margin: 10px;
-	 text-align: center;*/
-}
-.cell{
-/*	 display:inline-block;
-	 margin: 10px;
-	 text-align: center;*/
-}
 .cellInput{
-	 /*width: 100px;*/
-	 /*height: 100px;*/
 	 font-size: 20px;
 	 text-align: center;
 }
@@ -32,10 +14,7 @@
   border: 1px solid black; 
 }
 .cell:hover {
-  /*width: 100px;*/
-  /*height: 100px;*/
   background-color: #afe9ef;
-  /*border: 1px solid black; */
 }
 
 .letterCell{

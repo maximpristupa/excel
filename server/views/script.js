@@ -34,7 +34,6 @@ function displayPage(response = null) {
       html += '</div>';
   });
   html += `<input type="hidden" name="rowCount" value="${csv.length}">`;
-  // html += '<input onclick="calculate()" value="Recalculate" type="button" id="recalcButton"/>';
   html += '</form>';
   return html;
 }
