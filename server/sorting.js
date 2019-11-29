@@ -55,6 +55,7 @@ function csvToObjects(csv) {
                 return value;
             }
             cell.value = cell.value.replace(/[A-Z]\d/g, replacer);
+            if (cell.value.match(/error/i)) {cell.value = 'Error';}
             cell.links = null;
         });
     }
@@ -64,6 +65,7 @@ function csvToObjects(csv) {
             return;
         }
         cell.value = calc.evaluate(cell.value);
+        if (`${cell.value}`.match(/nan|undefined/i)) {cell.value = 'Error';}
     })
     return objects;
 }

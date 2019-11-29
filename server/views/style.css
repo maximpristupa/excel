@@ -1,38 +1,75 @@
-.cellInput{
-	 font-size: 20px;
-	 text-align: center;
+body{
+  background-color: #f3f3f5;
+}
+.head{
+  display: flex;
+  width: 100%;
+  height: 4vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #f3f3f5;
+  z-index: 1;
+}
+.uploadFile{
+  flex: 1 50px;
+}
+.cellInputForm{
+  flex: 5 100px;
+  background-color: #fdfdfd;
+}
+.myFileInput{
+  width: 100%;
+  height: 100%;
+}
+
+.newFile{
+  flex: 1 50px;
+}
+
+
+
+.letterRow{
+  display: flex;
+  margin-left: 2vh;
+  margin-top: 4vh;
+  top: 4vh;
+  position: sticky;
+}
+
+.letter{
+  background-color: #f3f3f5;
+  width: 150px;
+  text-align: center;
+}
+
+
+
+.numberRow{
+  position: sticky;
+  left: 0vh;
+  background-color: #f3f3f5; 
+  text-align: center;
+  padding-top: 2vh;
+}
+
+.number{
+  width: 2vh;
+  padding-bottom: 10px;
 }
 .row{
   display: flex;
-  justify-content: center;
 }
-
 .cell{
-  width: 100px;
-  height: 100px;
-  background-color: #def3f5;
-  border: 1px solid black; 
-}
-.cell:hover {
-  background-color: #afe9ef;
+  width: 150px;
+  height: 50px;
+  background-color:  #fdfdfd;
 }
 
-.letterCell{
-  width: 100px;
-  height: 20px;
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
+.cell:hover{
+  background-color: #e2dfdf;
 }
 
-.letterRow{
-  margin-left: 22px;
-}
-
-.numberRow{
-  border: 1px solid black;
-  width: 20px;
-  display: flex;
-  justify-content: center;
-  padding-top: 40px;
+.highlightRed{
+ background-color: #f9e3e3; 
 }

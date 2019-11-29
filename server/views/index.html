@@ -7,9 +7,15 @@
   </head>
   <body>
 
-    <form name="uploadFile">
-      <input type="file" name="myFile" onchange="upload(this.files[0])" />
-    </form>
+    <div class="head">
+        <form name="uploadFile" class="uploadFile">
+            <input type="file" name="myFile" onchange="upload(this.files[0])" class="myFileInput">
+        </form>
+
+        <button class="newFile" onclick="upload('newfile')">New File</button>
+        <button class="newFile" onclick="calculate('download')">Download File</button>
+        <input class="cellInputForm" onkeydown = "if (event.keyCode == 13) writeCell()">
+    </div>    
 
     <div id="table"></div>
 

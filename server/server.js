@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const fs = require('fs');
 
 const calc = require('./evaluate');
 const sort = require('./sorting');
@@ -49,6 +50,13 @@ app.post('/calculate', upload.single('extable'), (req, res, next) => {
     }
     let objects = sort.csvToObjects(subarray);
     let calculatedCsv = rw.objectsToCsv(objects);
+    if (req.body.download) {
+        fs.writeFile('newfile.csv', calculatedCsv, function (err) {
+          if (err) throw err;
+          console.log('File is created successfully.');
+        }); 
+    }
+    // if (req.body.download) {rw.writeCsv(calculatedCsv, 'uploads/')}
 
     res.send(calculatedCsv);
 })
