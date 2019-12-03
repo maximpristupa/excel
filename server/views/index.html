@@ -9,17 +9,17 @@
     <div class="container" onclick="closeCover()"></div>
     <div class="head">
         <form name="uploadFile" class="uploadFile">
-          <label class="button" for="getFile">Выбрать изображения</label>
           <input type="file" id="getFile" name="myFile" onchange="upload(this.files[0])" class="myFileInput">
         </form>
 
         <button class="newFile" onclick="upload('newfile')">New File</button>
         <button class="newFile" onclick="download()">Download File</button>
-        <button onclick="showModal()">Latest Files</button>
+        <button class="newFile" onclick="showModal()">Latest Files</button>
         <input class="cellInputForm" onkeydown = "if (event.keyCode == 13) writeCell()">
     </div>  
 
     <div class="filename">
+      <p>File name:</p>
       <input class="inputfilename" onkeydown = "if (event.keyCode == 13) writeFile()">
     </div>  
     <div class="modal"></div>  
