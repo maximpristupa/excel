@@ -8,19 +8,19 @@
   <body>
     <div class="container" onclick="closeCover()"></div>
     <div class="head">
-        <form name="uploadFile" class="uploadFile">
-          <input type="file" id="getFile" name="myFile" onchange="upload(this.files[0])" class="myFileInput">
+        <form name="uploadFile" class="upload-file">
+          <input type="file" id="get-file" name="myFile" onchange="upload(this.files[0])" class="my-file-input">
         </form>
 
-        <button class="newFile" onclick="upload('newfile')">New File</button>
-        <button class="newFile" onclick="download()">Save File</button>
-        <button class="newFile" onclick="showModal()">Open Files</button>
-        <input class="cellInputForm" onkeydown = "if (event.keyCode == 13) writeCell()">
+        <button class="new-file" onclick="upload('newfile')">New File</button>
+        <button class="new-file" onclick="download()">Save File</button>
+        <button class="new-file" onclick="showModal()">Open Files</button>
+        <input class="cell-input-form" onkeydown = "writeCell(event.keyCode)">
     </div>  
 
     <div class="filename">
       <p>File name:</p>
-      <input class="inputfilename" onkeydown = "if (event.keyCode == 13) writeFile()">
+      <input class="inputfilename" onkeydown = "writeFile(event.keyCode)">
     </div>  
     <div class="modal"></div>  
 

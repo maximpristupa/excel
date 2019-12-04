@@ -28,7 +28,7 @@ function csvToObjects(csv) {
             let chr = String.fromCharCode(65 + cellIndex);
             let obj = {
                 name: `${chr}${lineIndex+1}`,
-                value: cell.replace('=', '').replace(/^~\+/, ''),
+                value: cell.replace(/^=/, '').replace(/^~\+/, ''),
                 links: links
             };
             if (!links) {

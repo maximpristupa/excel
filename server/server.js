@@ -30,12 +30,12 @@ let storage = multer.diskStorage({
     cb(null, 'uploads')
   },
   filename: function(req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
+    cb(null, `${file.fieldname}-${Date.now()}`)
   }
 })
 
 let upload = multer({
-  storage: storage
+  storage
 })
 
 app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {

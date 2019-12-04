@@ -1,45 +1,62 @@
 $cell-color: #fdfdfd;
 $background-color: #f3f3f5;
+$button-width: 1 50px;
+$modal-top: 20%;
+$modal-left: 40%;
+$padding-top-bottom: 20px; 
+$number-row-width: 2vh;
+$letter-row-height: 4vh;
 
 @mixin inputsize() {
   text-align: center;
-  font-size: 30px;
+  font-size: 1.5rem;
 }
+
+@mixin attach-top-left($top, $left) {
+  top: $top;
+  left: $left;
+}
+
+@mixin width-height($width, $height) {
+  width: $width;
+  height: $height;
+}
+
 
 body{
   background-color: $background-color;
 }
 .head{
   display: flex;
-  width: 100%;
-  height: 4vh;
+  @include width-height(100%, $letter-row-height);
   position: fixed;
-  top: 0;
-  left: 0;
+  @include attach-top-left(0, 0);
   background-color: $background-color;
   z-index: 1;
-}
-.uploadFile{
-  flex: 1 50px;
-}
-.cellInputForm{
-  flex: 5 100px;
-  background-color: $cell-color;
-}
-.myFileInput{
-  width: 100%;
-  height: 100%;
+
+  .upload-file{
+    flex: $button-width;
+  }
+
+  .my-file-input{
+    @include width-height(100%, 100%);
+  }
+
+  .cell-input-form{
+    flex: 5 100px;
+    background-color: $cell-color;
+  }
+
+  .new-file{
+    flex: $button-width;
+  }
 }
 
-.newFile{
-  flex: 1 50px;
-}
-
-.letterRow{
+.letter-row{
   display: flex;
-  margin-left: 2vh;
-  margin-top: 4vh;
-  top: 4vh;
+  margin-left: $number-row-width;
+  margin-top: $letter-row-height;
+  top: $letter-row-height;
   position: sticky;
 }
 
@@ -49,7 +66,7 @@ body{
   text-align: center;
 }
 
-.numberRow{
+.number-row{
   position: sticky;
   left: 0vh;
   background-color: $background-color; 
@@ -58,15 +75,14 @@ body{
 }
 
 .number{
-  width: 2vh;
+  width: $number-row-width;
   padding-bottom: 10px;
 }
 .row{
   display: flex;
 }
 .cell{
-  width: 150px;
-  height: 50px;
+  @include width-height(150px, 50px);
   background-color:  $cell-color;
 }
 
@@ -74,7 +90,7 @@ body{
   background-color: #e2dfdf;
 }
 
-.highlightRed{
+.highlight-red{
  background-color: #f9e3e3; 
 }
 
@@ -86,8 +102,7 @@ body{
   position: fixed;
   z-index: 3;
   width: 500px;
-  top: 20%;
-  left: 40%;
+  @include attach-top-left($modal-top, $modal-left);
   display: flex;
   flex-direction: column;
   border: 1px solid black;
@@ -101,19 +116,21 @@ body{
 .filename{
   position: fixed;
   z-index: 3;
-  width: 100%;
-  height: 300px;
-  top: 20%;
-  left: 40%;
+  @include width-height(100%, 300px);
+  @include attach-top-left($modal-top, $modal-left);
   display: none;
+
+  .inputfilename{
+    padding-top: $padding-top-bottom;
+    @include width-height(95%, 50px);
+    @include inputsize();
+  }
 }
 
 .showfilename{
   position: fixed;
-  width: 500px;
-  height: 180px;
-  top: 20%;
-  left: 40%;
+  @include width-height(500px, 180px);
+  @include attach-top-left($modal-top, $modal-left);
   display: flex; 
   flex-direction: column;
   border: 1px solid black;
@@ -129,18 +146,10 @@ body{
   }
 }
 
-.inputfilename{
-  padding-top: 20px;
-  width: 95%;
-  height: 50px;
-  @include inputsize();
-}
-
 .modalfilename{
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 100%;
-  height: 50px;
+  padding-top: $padding-top-bottom;
+  padding-bottom: $padding-top-bottom;
+  @include width-height(100%, 50px);
   text-align: center;
 }
 
@@ -150,14 +159,13 @@ body{
 .cover{
   z-index: 2;
   position: fixed;
-  left: 0;
-  top: 0;
+  @include attach-top-left(0, 0);
   right: 0;
   bottom: 0;
   background-color: #ffffff;
   opacity: 0.7;
 }
 
-.chooseFile{
+.choose-file{
   @include inputsize();
 }
