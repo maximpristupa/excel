@@ -52,23 +52,26 @@ function printHtml(html) {
   document.getElementById('table').innerHTML = html;
 }
 
-  function calculate(filename, callback) {
-    let formData = new FormData(document.forms.extable);
-    if (filename) {
-      formData.append('filename', filename);
-    }
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/calculate');
-    xhr.send(formData);
-
-    xhr.onload = () => {printHtml(displayPage(xhr.response));}
-    if (callback) {
-      callback();
-    }
+function calculate(filename, callback) {
+  let formData = new FormData(document.forms.extable);
+  if (filename) {
+    formData.append('filename', filename);
   }
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', '/calculate');
+  xhr.send(formData);
 
-  let input = document.getElementsByClassName('cell-input-form')[0];
-  function openInput(cell) {
+  xhr.onload = () => {
+    printHtml(displayPage(xhr.response));
+  }
+  if (callback) {
+    callback();
+  }
+}
+
+let input = document.getElementsByClassName('cell-input-form')[0];
+
+function openInput(cell) {
   input.value = cell.value;
   input.setAttribute('cell-id', cell.id);
   changeInput(cell);
@@ -108,8 +111,10 @@ function changeCell(cell) {
   };
 }
 
-function writeCell(event) { 
-  if (event !== 13) {return;}
+function writeCell(event) {
+  if (event !== 13) {
+    return;
+  }
   const cellId = input.getAttribute('cell-id');
   let cell = document.getElementById(cellId);
   cell.value = input.value;
@@ -155,11 +160,15 @@ function showModal(argument) {
   let xhr = new XMLHttpRequest();
   xhr.open('GET', '/lastfiles');
   xhr.send();
-  xhr.onload = () => {printFiles(xhr.response);}
+  xhr.onload = () => {
+    printFiles(xhr.response);
+  }
 }
 
 function writeFile(event) {
-  if (event !== 13) {return;}
+  if (event !== 13) {
+    return;
+  }
   let fileName = document.getElementsByClassName('inputfilename')[0].value;
   calculate(fileName);
   removeClass('filename', 'showfilename');
@@ -170,14 +179,14 @@ function printFiles(json) {
   let modal = document.getElementsByClassName('modal')[0];
   html = '';
   if (json === '{}') {
-    html += '<p class="choose-file">No files to open</p>';  
+    html += '<p class="choose-file">No files to open</p>';
     modal.innerHTML = html;
     return;
   }
   html += '<p class="choose-file">Choose File</p>';
   let records = JSON.parse(json);
-  Object.entries(records).forEach(([key,value])=>{
-      html += `<div class="modalfilename" onclick="uploadLatestFile('${key}')">${value}</div>`
+  Object.entries(records).forEach(([key, value]) => {
+    html += `<div class="modalfilename" onclick="uploadLatestFile('${key}')">${value}</div>`
   })
   modal.innerHTML = html;
 }
@@ -186,7 +195,9 @@ function uploadLatestFile(filename) {
   let xhr = new XMLHttpRequest();
   xhr.open('GET', '/openfile' + `?filename=${filename}`);
   xhr.send(filename);
-  xhr.onload = () => {printHtml(displayPage(xhr.response));}
+  xhr.onload = () => {
+    printHtml(displayPage(xhr.response));
+  }
   removeClass('modal', 'showmodal');
   removeClass('container', 'cover');
 }
