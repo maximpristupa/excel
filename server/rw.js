@@ -7,6 +7,8 @@ const charCodeA = 'A'.charCodeAt(0);
 // Write
 
 function objectsToCsv(objects) {
+    const rowLength = 20;
+    const rowCount = 30;
     const letters = objects.map((num) => num.name.match(/[A-Z]/)[0]);
     const numbers = objects.map((num) => num.name.match(/(\d+)/)[0]);
     let lastLetter = letters.sort().pop();
@@ -25,10 +27,10 @@ function objectsToCsv(objects) {
                 row.push('')
             }
         }
-        while (row.length < 20) { row.push(''); }
+        while (row.length < rowLength) { row.push(''); }
         file.push(row);
     }
-    while (file.length < 30) { file.push(Array(20).fill('')) }            
+    while (file.length < rowCount) { file.push(Array(rowLength).fill('')) }            
     return file;
 }
 

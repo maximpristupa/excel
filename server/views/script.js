@@ -1,8 +1,10 @@
 upload('newfile');
 
 function upload(file) {
+  const rowCount = 30;
+  const rowLength = 17;
   if (file === 'newfile') {
-    const emptyCsvArray = Array(30).fill().map(() => Array(17).fill().map(() => ''));
+    const emptyCsvArray = Array(rowCount).fill().map(() => Array(rowLength).fill().map(() => ''));
     let json = JSON.stringify(emptyCsvArray);
     printHtml(displayPage(json));
     return;
@@ -63,9 +65,9 @@ function calculate(filename, callback) {
 
   xhr.onload = () => {
     printHtml(displayPage(xhr.response));
-  }
-  if (callback) {
-    callback();
+    if (callback) {
+      callback();
+    }
   }
 }
 
@@ -119,7 +121,6 @@ function writeCell(event) {
   let cell = document.getElementById(cellId);
   cell.value = input.value;
   calculate(null, writeInput);
-  setTimeout(writeInput, 1000);
 }
 
 function writeInput(argument) {

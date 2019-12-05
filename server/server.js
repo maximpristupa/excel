@@ -46,19 +46,19 @@ app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
 })
 
 app.post('/calculate', upload.single('extable'), (req, res, next) => {
-  let csv = req.body.cell;
-  let rowCount = req.body.rowCount;
-  let size = csv.length / +rowCount;
+  const csv = req.body.cell;
+  const rowCount = req.body.rowCount;
+  const size = csv.length / +rowCount;
   let subarray = [];
   for (let i = 0; i < Math.ceil(csv.length / size); i++) {
     subarray[i] = csv.slice((i * size), (i * size) + size).join();
   }
   let objects = sort.csvToObjects(subarray);
   let calculatedCsv = rw.objectsToCsv(objects);
-  let file = 'file' + Date.now() + '.csv';
+  let file = `file${Date.now()}.csv`;
   if (req.body.filename) {
     rw.writeCsv(calculatedCsv, file);
-    let jsonFile = fs.readFileSync('files.json');
+    const jsonFile = fs.readFileSync('files.json');
     let jsonName = JSON.parse(jsonFile);
     jsonName[file] = req.body.filename;
     fs.writeFileSync('files.json', JSON.stringify(jsonName));
@@ -68,9 +68,9 @@ app.post('/calculate', upload.single('extable'), (req, res, next) => {
 })
 
 app.get('/openfile', (req, res, next) => {
-  let file = `${fs.readFileSync(req.query.filename)}`;
-  let objects = sort.csvToObjects(file);
-  let csv = rw.objectsToCsv(objects);
+  const file = `${fs.readFileSync(req.query.filename)}`;
+  const objects = sort.csvToObjects(file);
+  const csv = rw.objectsToCsv(objects);
   res.send(csv);
 })
 
